@@ -6,8 +6,9 @@
   "scripts": {
     "jest": "jest --coverage --forceExit",
     "test": "npm run jest",
+    "dev": "DEBUG=funfunz:* NODE_ENV=development ts-node ./src/test/dev.ts",
     "lint": "eslint src",
-    "clean": "rm -rf lib && mkdir lib",
+    "clean": "rm -rf build && mkdir build",
     "build": "npm run lint && npm run clean && tsc --project tsconfig.build.json",
     "prepublishOnly": "npm run build"
   },
@@ -37,6 +38,7 @@
     "@typescript-eslint/parser": "^4.7.0",
     "eslint": "^7.13.0",
     "jest": "^26.6.3",
+    "ts-node": "^9.1.1",
     "typescript": "^4.0.5"
   },
   "dependencies": {

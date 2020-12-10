@@ -4,16 +4,16 @@ export default {
   'visible': true,
   'roles': {
     'create': [
-      'admin'
+      'all'
     ],
     'read': [
-      'admin'
+      'all'
     ],
     'update': [
-      'admin'
+      'all'
     ],
     'delete': [
-      'admin'
+      'all'
     ]
   },
   'relations': [
@@ -24,6 +24,13 @@ export default {
       'remoteTable': 'roles',
       'remoteForeignKey': 'roleId',
     },
+    {
+      'type': '1:n',
+      'relationalTable': 'products',
+      'foreignKey': 'id',
+      'remoteForeignKey': 'userId',
+      'remoteTable': 'products',
+    }
   ],
   'properties': [
     {
@@ -107,54 +114,7 @@ export default {
         }
       }
     },
-    {
-      'name': 'createdAt',
-      'searchable': true,
-      'visible': {
-        'list': true,
-        'detail': false,
-        'relation': false
-      },
-      'model': {
-        'type': 'datetime',
-        'allowNull': false
-      },
-      'layout': {
-        'label': 'CreatedAt',
-        'listColumn': {},
-        'editField': {
-          'type': 'date'
-        }
-      }
-    },
-    {
-      'name': 'updatedAt',
-      'searchable': true,
-      'visible': {
-        'list': true,
-        'detail': false,
-        'relation': false
-      },
-      'model': {
-        'type': 'datetime',
-        'allowNull': false
-      },
-      'layout': {
-        'label': 'UpdatedAt',
-        'listColumn': {},
-        'editField': {
-          'type': 'date'
-        }
-      }
-    }
   ],
-  'hooks': {
-    count: {
-      async beforeResolver(props) {
-        throw new Error('Not authorized')
-      }
-    }
-  },
   'layout': {
     'label': 'Users',
     'listPage': {},

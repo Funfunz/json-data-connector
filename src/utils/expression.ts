@@ -1,4 +1,4 @@
-import { FilterValues, IFilter, OperatorsType } from "@funfunz/core/lib/middleware/utils/filter"
+import { FilterValues, IFilter, OperatorsType } from '@funfunz/core/lib/middleware/utils/filter'
 
 export function expression(item: Record<string, unknown>, filters: IFilter): boolean {
   if (filters._and) {
@@ -12,11 +12,12 @@ export function expression(item: Record<string, unknown>, filters: IFilter): boo
   } else {
     const fieldName = Object.keys(filters)[0]
     const operator = Object.keys(filters[fieldName] as IFilter)[0] as OperatorsType
-    return operatorMatcher(item[fieldName] as FilterValues, operator, filters[fieldName] as FilterValues)
+    return operatorMatcher(item[fieldName] as FilterValues, operator, (filters[fieldName] as any)[operator] as FilterValues)
   }
 }
 
 function operatorMatcher(entry: FilterValues, operator: OperatorsType, value: FilterValues) {
+  console.log('operator', entry, operator, value)
   switch (operator) {
   case '_eq':
     return entry == value

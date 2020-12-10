@@ -1,14 +1,11 @@
+import path from 'path'
+
 const config = {
   connectors: {
     mainDatabase: {
-      type: "@funfunz/sql-data-connector",
+      type: path.join(__dirname, '..', '..', '..'),
       config: {
-        client: 'mysql2',
-        host: "127.0.0.1",
-        database: "test_db",
-        user: "root",
-        password: process.env.DB_PASSWORD || '',
-        port: "3306"
+        folderPath: path.join(__dirname, '..', 'storage') 
       },
     }
   }

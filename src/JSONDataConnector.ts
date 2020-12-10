@@ -3,6 +3,7 @@ import type { ICreateArgs, IQueryArgs, IRemoveArgs, IUpdateArgs, DataConnector, 
 import type { IFilter } from '@funfunz/core/lib/middleware/utils/filter'
 import { JsonFolderParser } from './utils/json'
 import { expression } from './utils/expression'
+import { Funfunz } from '@funfunz/core'
 
 const debug = Debug('funfunz:SQLDataConnector')
 
@@ -11,9 +12,11 @@ interface IJsonConnectorConfig {
 }
 
 export class Connector implements DataConnector{
+  private funfunz: Funfunz
   public connection: IJsonConnectorConfig
   private json: JsonFolderParser
-  constructor(connector: IDataConnector) {
+  constructor(connector: IDataConnector, funfunz: Funfunz) {
+    this.funfunz = funfunz
     this.connection = {
       ...connector.config as IJsonConnectorConfig
     }
@@ -71,7 +74,12 @@ export class Connector implements DataConnector{
 
     results.push(args.data)
 
-    return args.data
+    await this.json.write(args.entityName, results)
+
+    if (args.fields) {
+      return this.select([args.data], args.fields)
+    }
+    return [args.data]
   }
 
   public async remove(args: IRemoveArgs): Promise<number> {
@@ -91,18 +99,20 @@ export class Connector implements DataConnector{
 
   private paginate(results: Array<unknown>, skip = 0, take = 0) {
     return results.filter((item, index) => {
-      return index >= skip && index <= skip + take
+      return index >= skip && index < skip + take
     }) as Record<string, unknown>[]
   }
 
+  private selectItem(item: Record<string, unknown>, fields: string[]) {
+    const normalizedItem: Record<string, unknown> = {}
+    fields.forEach((field) => {
+      normalizedItem[field] = item[field]
+    })
+    return normalizedItem
+  }
+
   private select(results: Array<Record<string, unknown>>, fields: string[]) {
-    return results.map((item) => {
-      const normalizedItem: Record<string, unknown> = {}
-      fields.forEach((field) => {
-        normalizedItem[field] = item[field]
-      })
-      return normalizedItem
-    }) as Record<string, unknown>[]
+    return results.map((item) => this.selectItem(item, fields))
   }
 
   private count(results: Array<unknown>) {

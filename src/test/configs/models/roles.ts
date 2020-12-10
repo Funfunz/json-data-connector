@@ -67,46 +67,6 @@ export default {
         }
       }
     },
-    {
-      'name': 'createdAt',
-      'searchable': true,
-      'visible': {
-        'list': true,
-        'detail': false,
-        'relation': false
-      },
-      'model': {
-        'type': 'datetime',
-        'allowNull': false
-      },
-      'layout': {
-        'label': 'CreatedAt',
-        'listColumn': {},
-        'editField': {
-          'type': 'date'
-        }
-      }
-    },
-    {
-      'name': 'updatedAt',
-      'searchable': true,
-      'visible': {
-        'list': true,
-        'detail': false,
-        'relation': false
-      },
-      'model': {
-        'type': 'datetime',
-        'allowNull': false
-      },
-      'layout': {
-        'label': 'UpdatedAt',
-        'listColumn': {},
-        'editField': {
-          'type': 'date'
-        }
-      }
-    }
   ],
   'layout': {
     'label': 'Roles',

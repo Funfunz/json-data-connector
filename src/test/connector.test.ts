@@ -1,3 +1,4 @@
+import path from 'path'
 import { Connector } from '../index'
 import config from './configs/MCconfig'
 import settings from './configs/MCsettings'
@@ -21,14 +22,9 @@ jest.mock('@funfunz/core', () => {
 
 const connector = new Connector(
   {
-    type: 'sql',
+    type: 'json',
     config: {
-      client: 'mysql2',
-      host: "127.0.0.1",
-      database: "test_db",
-      user: "root",
-      password: process.env.DB_PASSWORD || 'root',
-      port: "3306"
+      folder: path.join(__dirname, 'storage')
     }
   },
   new Funfunz({

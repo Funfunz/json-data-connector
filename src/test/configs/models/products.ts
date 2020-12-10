@@ -79,65 +79,7 @@ export default {
       }
     },
     {
-      'name': 'type',
-      'searchable': true,
-      'visible': {
-        'list': true,
-        'detail': true,
-        'relation': false
-      },
-      'model': {
-        'type': 'smallint',
-        'allowNull': true
-      },
-      'layout': {
-        'label': 'Type',
-        'listColumn': {},
-        'editField': {}
-      }
-    },
-    {
-      'name': 'createdAt',
-      'searchable': true,
-      'visible': {
-        'list': true,
-        'detail': false,
-        'relation': false
-      },
-      'model': {
-        'type': 'datetime',
-        'allowNull': false
-      },
-      'layout': {
-        'label': 'CreatedAt',
-        'listColumn': {},
-        'editField': {
-          'type': 'date'
-        }
-      }
-    },
-    {
-      'name': 'updatedAt',
-      'searchable': true,
-      'visible': {
-        'list': true,
-        'detail': false,
-        'relation': false
-      },
-      'model': {
-        'type': 'datetime',
-        'allowNull': false
-      },
-      'layout': {
-        'label': 'UpdatedAt',
-        'listColumn': {},
-        'editField': {
-          'type': 'date'
-        }
-      }
-    },
-    {
-      'name': 'FamilyId',
+      'name': 'userId',
       'searchable': true,
       'visible': {
         'list': true,
@@ -149,30 +91,10 @@ export default {
         'allowNull': true
       },
       'layout': {
-        'label': 'FamilyId',
+        'label': 'UserId',
         'listColumn': {},
         'editField': {
           'type': 'number'
-        }
-      }
-    },
-    {
-      'name': 'active',
-      'searchable': true,
-      'visible': {
-        'list': true,
-        'detail': true,
-        'relation': false
-      },
-      'model': {
-        'type': 'tinyint(1)',
-        'allowNull': true
-      },
-      'layout': {
-        'label': 'Active',
-        'listColumn': {},
-        'editField': {
-          'type': 'checkbox'
         }
       }
     }
@@ -188,26 +110,12 @@ export default {
       'sections': []
     }
   },
-  'hooks': {
-    count: {
-      async beforeResolver(props) {
-        props.args.filter =  { id: { _eq: 1 }}
-        return props
-      }
-    }
-  },
   'relations': [
     {
       'type': 'n:1',
       'relationalTable': 'products',
-      'foreignKey': 'FamilyId',
-      'remoteTable': 'families'
-    },
-    {
-      'type': '1:n',
-      'relationalTable': 'images',
-      'foreignKey': 'ProductId',
-      'remoteTable': 'images'
+      'foreignKey': 'userId',
+      'remoteTable': 'users',
     }
   ]
 }
