@@ -54,18 +54,19 @@ export class Connector implements DataConnector{
     const results: Record<string, unknown>[] = await this.json.read(args.entityName)
 
     const toUpdate = this.filter(results, args.filter)
-
-    toUpdate.forEach((itemToUpdate) => {
-      const index = results.findIndex(item => item === itemToUpdate)
-      Object.keys(args.data).forEach((key) => {
-        results[index][key] = args.data[key]
+    const updated: Record<string, unknown>[] = []
+    if (toUpdate.length > 0) {
+      toUpdate.forEach((itemToUpdate) => {
+        const index = results.findIndex(item => item === itemToUpdate)
+        Object.keys(args.data).forEach((key) => {
+          results[index][key] = args.data[key]
+        })
+        updated.push(results[index])
       })
-      results[index]
-    })
 
-    await this.json.write(args.entityName, results)
-
-    return toUpdate.length
+      await this.json.write(args.entityName, results)
+    }
+    return updated
   }
 
   public async create(args: ICreateArgs): Promise<Record<string, unknown>[] | Record<string, unknown> | number> {
@@ -89,7 +90,7 @@ export class Connector implements DataConnector{
     const toDelete = this.filter(beforeDelete, args.filter)
 
     const afterDelete = beforeDelete.filter((item) => {
-      return toDelete.includes(item)
+      return !toDelete.includes(item)
     })
 
     await this.json.write(args.entityName, afterDelete)
@@ -97,9 +98,9 @@ export class Connector implements DataConnector{
     return toDelete.length
   }
 
-  private paginate(results: Array<unknown>, skip = 0, take = 0) {
+  private paginate(results: Array<unknown>, skip = 0, take) {
     return results.filter((item, index) => {
-      return index >= skip && index < skip + take
+      return index >= skip && (take ? index < skip + take : true)
     }) as Record<string, unknown>[]
   }
 

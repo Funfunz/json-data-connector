@@ -24,27 +24,24 @@ const connector = new Connector(
   {
     type: 'json',
     config: {
-      folder: path.join(__dirname, 'storage')
+      folderPath: path.join(__dirname, 'storage')
     }
   },
   new Funfunz({
     config,
+    // @ts-ignore
     settings
   })
 )
 
-let familyTestName = 'TestFamily'
-let familyUpdatedTestName = 'UpdatedTestFamily'
-let createdId: number
-
-describe('SQL Data Connector', () => {
+describe('JSON Data Connector', () => {
   it('Should return a list of results', (done) => {
     const fields  = [
       'id',
       'name'
     ]
     return connector.query({
-      entityName: 'families',
+      entityName: 'products',
       fields,
       filter: {
         id: {
@@ -73,7 +70,7 @@ describe('SQL Data Connector', () => {
       'name'
     ]
     return connector.query({
-      entityName: 'families',
+      entityName: 'products',
       fields,
       filter: {
         _or: [
@@ -116,12 +113,12 @@ describe('SQL Data Connector', () => {
               },
               {
                 name: {
-                  _like: '%one'
+                  _like: 'Product'
                 }
               },
               {
                 name: {
-                  _nlike: 'one'
+                  _nlike: 'User'
                 }
               },
             ],
@@ -135,7 +132,7 @@ describe('SQL Data Connector', () => {
               },
               {
                 name: {
-                  _like: '%two'
+                  _like: 'Product'
                 }
               },
             ],
@@ -167,7 +164,7 @@ describe('SQL Data Connector', () => {
       'name'
     ]
     return connector.query({
-      entityName: 'families',
+      entityName: 'products',
       fields,
       filter: {
         id: {
@@ -196,7 +193,7 @@ describe('SQL Data Connector', () => {
       'name'
     ]
     return connector.query({
-      entityName: 'families',
+      entityName: 'products',
       fields,
       filter: {
         id: {
@@ -219,9 +216,9 @@ describe('SQL Data Connector', () => {
     )
   })
 
-  it('Should count the quantity of families', (done) => {
+  it('Should count the quantity of products', (done) => {
     return connector.query({
-      entityName: 'families',
+      entityName: 'products',
       count: true,
       fields: [], 
     }).then(
@@ -232,13 +229,13 @@ describe('SQL Data Connector', () => {
     )
   })
 
-  it('Should create a new family', (done) => {
+  it('Should create a new product', (done) => {
     return connector.create({
-      entityName: 'families',
+      entityName: 'products',
       data: {
-        name: familyTestName,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        id: 4,
+        name: 'Name 4',
+        color: 'black'
       },
       fields: [
         'id',
@@ -248,24 +245,21 @@ describe('SQL Data Connector', () => {
       (result) => {
         const typedResult = result as Record<string, unknown>[]
         expect(typedResult[0].id).toBeTruthy()
-        createdId = typedResult[0].id as number
-        expect(typedResult[0].name).toBe(familyTestName)
+        expect(typedResult[0].name).toBe('Name 4')
         return done()
       }
     )
   })
 
-  it('Should update a family', (done) => {
+  it('Should update a product', (done) => {
     return connector.update({
-      entityName: 'families',
+      entityName: 'products',
       data: {
-        name: familyUpdatedTestName,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        name: 'Name 44'
       },
       filter: {
         id: {
-          _eq: createdId
+          _eq: 4
         }
       },
       fields: [
@@ -276,22 +270,21 @@ describe('SQL Data Connector', () => {
       (result) => {
         const typedResult = result as Record<string, unknown>[]
         expect(typedResult[0].id).toBeTruthy()
-        expect(typedResult[0].name).toBe(familyUpdatedTestName)
+        expect(typedResult[0].name).toBe('Name 44')
         return done()
       }
     )
   })
 
   it('If the filter matchs 0 items, return an empty array', (done) => {
-    createdId += 1
     return connector.update({
-      entityName: 'families',
+      entityName: 'products',
       data: {
-        id: createdId,
+        name: 'Other',
       },
       filter: {
         id: {
-          _eq: createdId - 1
+          _eq: 9
         }
       },
       fields: [
@@ -307,13 +300,11 @@ describe('SQL Data Connector', () => {
     )
   })
 
-  it('Should not update a family because of no match', (done) => {
+  it('Should not update a product because of no match', (done) => {
     return connector.update({
-      entityName: 'families',
+      entityName: 'products',
       data: {
-        name: familyUpdatedTestName,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        name: 'Product',
       },
       filter: {
         id: {
@@ -333,12 +324,12 @@ describe('SQL Data Connector', () => {
     )
   })
 
-  it('Should delete a family', (done) => {
+  it('Should delete a product', (done) => {
     return connector.remove({
-      entityName: 'families',
+      entityName: 'products',
       filter: {
         id: {
-          _eq: createdId
+          _eq: 4
         }
       }
     }).then(

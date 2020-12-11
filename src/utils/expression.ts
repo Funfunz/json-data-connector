@@ -17,7 +17,6 @@ export function expression(item: Record<string, unknown>, filters: IFilter): boo
 }
 
 function operatorMatcher(entry: FilterValues, operator: OperatorsType, value: FilterValues) {
-  console.log('operator', entry, operator, value)
   switch (operator) {
   case '_eq':
     return entry == value
@@ -36,11 +35,10 @@ function operatorMatcher(entry: FilterValues, operator: OperatorsType, value: Fi
   case '_nin':
     return Array.isArray(value) && !value.includes(entry as never)
   case '_like':
-    // not implemented!
+    return value && (entry + '').includes(value + '')
     return false
   case '_nlike':
-    // not implemented!
-    return false
+    return value && !(entry + '').includes(value + '')
   case '_is_null':
     return entry === undefined || entry === null 
   default:

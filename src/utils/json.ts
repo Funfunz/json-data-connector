@@ -28,7 +28,6 @@ export class JsonFolderParser {
   public async write(name: string, obj: Array<Record<string, unknown>>): Promise<void> {
     const filePath = this.filePath(name)
     const contents = JSON.stringify(obj, null, 2)
-    console.log('write', filePath, contents)
     await fs.writeFile(filePath, contents, 'utf-8')
   }
 }
