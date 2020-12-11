@@ -11,8 +11,10 @@ export function expression(item: Record<string, unknown>, filters: IFilter): boo
     }, false)
   } else {
     const fieldName = Object.keys(filters)[0]
+    const entry = item[fieldName] as FilterValues
     const operator = Object.keys(filters[fieldName] as IFilter)[0] as OperatorsType
-    return operatorMatcher(item[fieldName] as FilterValues, operator, (filters[fieldName] as any)[operator] as FilterValues)
+    const filterValue = (filters[fieldName] as {[key: string]: FilterValues})[operator]
+    return operatorMatcher(entry, operator, filterValue)
   }
 }
 
@@ -31,14 +33,13 @@ function operatorMatcher(entry: FilterValues, operator: OperatorsType, value: Fi
   case '_gte':
     return entry !== null && value !== null && entry >= value
   case '_in':
-    return Array.isArray(value) && value.includes(entry as never)
+    return Array.isArray(value) ? value.includes(entry as never) : false
   case '_nin':
-    return Array.isArray(value) && !value.includes(entry as never)
+    return Array.isArray(value) ? !value.includes(entry as never) : false
   case '_like':
-    return value && (entry + '').includes(value + '')
-    return false
+    return value ? (entry + '').includes(value + '') : false
   case '_nlike':
-    return value && !(entry + '').includes(value + '')
+    return value ? !(entry + '').includes(value + '') :  false
   case '_is_null':
     return entry === undefined || entry === null 
   default:

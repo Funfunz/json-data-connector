@@ -11,7 +11,7 @@
 
 ## Features
 
-This connector use a JSON file for each entity to storage it's entries.
+This connector use a JSON file for each entity to storage its entries.
 
 
 ## Configuration

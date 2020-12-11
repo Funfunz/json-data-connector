@@ -1,6 +1,6 @@
 {
   "name": "@funfunz/json-data-connector",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "json data connector for Funfunz",
   "main": "build/index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Funfunz/sql-data-connector.git"
+    "url": "git+https://github.com/Funfunz/json-data-connector.git"
   },
   "keywords": [
     "sql",
