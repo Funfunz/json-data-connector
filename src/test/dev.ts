@@ -22,4 +22,4 @@ export const connector = new Connector(
 )
 
 const server = http.createServer(funfunz.middleware)
-server.listen(3000)
+server.listen(3009)

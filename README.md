@@ -1,4 +1,4 @@
-# Funfunz SQL Data Connector
+# Funfunz JSON Data Connector
 
 [![Discord][discord-badge]][discord]
 [![Build Status][actions-badge]][actions]
@@ -8,40 +8,41 @@
 [![PRs Welcome][prs-badge]][prs]
 [![GitHub][license-badge]][license]
 
-## Documentation
-
-Just follow the [link](https://funfunz.github.io/funfunz/#/usage/dataConnectors/sql)
 
 ## Features
 
-This connector uses KnexJS under the hood and is able to connect to SQL databases
+This connector use a JSON file for each entity to storage it's entries.
 
-**Supported Databases**
 
-- Postgres
-- MSSQL
-- MySQL
-- MariaDB
-- SQLite3
-- Oracle
-- Amazon Redshift
+## Configuration
 
-The configuration supported for each of the databases can be checked at KnexJS
+* `folderPath`: absolute path of the folder where this connector should read/write JSON files
 
-**Drivers required for each database**
 
-- pg for PostgreSQL and Amazon Redshift
-- mysql for MySQL or MariaDB
-- sqlite3 for SQLite3
-- mssql for MSSQL
+### Example
+
+```typescript
+const config = {
+  connectors: {
+    mainDatabase: {
+      type: '@funfunz/json-data-connector',
+      config: {
+        folderPath: path.join(__dirname, '..', 'storage') 
+      },
+    }
+  }
+}
+const funfunz = new Funfunz({ config, ... })
+```
+
 
 [discord-badge]: https://img.shields.io/discord/774439225520554004?logo=discord
 [discord]: https://discord.gg/HwZ7zMJKwg
 
-[actions-badge]: https://github.com/funfunz/sql-data-connector/workflows/Node.js%20CI/badge.svg
-[actions]: https://github.com/Funfunz/sql-data-connector/actions
+[actions-badge]: https://github.com/funfunz/json-data-connector/workflows/Node.js%20CI/badge.svg
+[actions]: https://github.com/Funfunz/json-data-connector/actions
 
-[codecov-badge]: https://codecov.io/gh/Funfunz/sql-data-connector/branch/main/graph/badge.svg
+[codecov-badge]: https://codecov.io/gh/Funfunz/json-data-connector/branch/main/graph/badge.svg
 [codecov]: https://codecov.io/gh/Funfunz/sql-data-connector
 
 [node]: https://img.shields.io/node/v/funfunz.svg
