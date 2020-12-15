@@ -1,0 +1,50 @@
+{
+  "name": "@funfunz/json-data-connector",
+  "version": "0.0.3",
+  "description": "json data connector for Funfunz",
+  "main": "build/index.js",
+  "scripts": {
+    "jest": "jest --coverage --forceExit",
+    "test": "npm run jest",
+    "dev": "DEBUG=funfunz:* NODE_ENV=development ts-node ./src/test/dev.ts",
+    "lint": "eslint src",
+    "clean": "rm -rf build && mkdir build",
+    "build": "npm run lint && npm run clean && tsc --project tsconfig.build.json",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Funfunz/json-data-connector.git"
+  },
+  "keywords": [
+    "json",
+    "data",
+    "connector",
+    "funfunz"
+  ],
+  "author": "João Leite <joaogsleite@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Funfunz/json-data-connector/issues"
+  },
+  "homepage": "https://github.com/Funfunz/json-data-connector#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-typescript": "^7.12.1",
+    "@funfunz/core": "^0.7.0",
+    "@types/jest": "^26.0.15",
+    "@typescript-eslint/eslint-plugin": "^4.7.0",
+    "@typescript-eslint/parser": "^4.7.0",
+    "eslint": "^7.13.0",
+    "jest": "^26.6.3",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.0.5"
+  },
+  "dependencies": {
+    "debug": "^4.2.0"
+  },
+  "peerDependencies": {
+    "@funfunz/core": "^0.7.0"
+  }
+}
