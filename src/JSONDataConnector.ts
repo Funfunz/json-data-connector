@@ -5,7 +5,7 @@ import { JsonFolderParser } from './utils/json'
 import { expression } from './utils/expression'
 import { Funfunz } from '@funfunz/core'
 
-const debug = Debug('funfunz:SQLDataConnector')
+const debug = Debug('funfunz:JSONDataConnector')
 
 interface IJsonConnectorConfig {
   folderPath: string

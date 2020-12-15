@@ -43,7 +43,7 @@ const funfunz = new Funfunz({ config, ... })
 [actions]: https://github.com/Funfunz/json-data-connector/actions
 
 [codecov-badge]: https://codecov.io/gh/Funfunz/json-data-connector/branch/main/graph/badge.svg
-[codecov]: https://codecov.io/gh/Funfunz/sql-data-connector
+[codecov]: https://codecov.io/gh/Funfunz/json-data-connector
 
 [node]: https://img.shields.io/node/v/funfunz.svg
 
