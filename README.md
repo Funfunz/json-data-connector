@@ -27,7 +27,7 @@ const config = {
     mainDatabase: {
       type: '@funfunz/json-data-connector',
       config: {
-        folderPath: path.join(__dirname, '..', 'storage') 
+        folderPath: path.join(__dirname, 'storage') 
       },
     }
   }
