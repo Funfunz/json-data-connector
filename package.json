@@ -1,6 +1,6 @@
 {
   "name": "@funfunz/json-data-connector",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "json data connector for Funfunz",
   "main": "build/index.js",
   "scripts": {
