@@ -46,6 +46,6 @@
     "graphql": "^15.5.0"
   },
   "peerDependencies": {
-    "@funfunz/core": "^0.7.0"
+    "@funfunz/core": "0.x"
   }
 }
